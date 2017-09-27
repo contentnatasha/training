@@ -15,27 +15,37 @@ public:
 	size_t size() const {
 		return N;
 	}
+        int get (size_t row, size_t col) {
+          return v[row*N + col];
+        }
+        void set (size_t row, size_t col, int value) {
+          v[row*N + col] = value;
+        } 
+        void readMatrix() {
+          int value;
+	  for (size_t row = 0; row < size(); row++) {
+		for (size_t col = 0; col < size(); col++) {
+                  std::cin >> value;
+		  set(row, col, value);
+		}
+	  }
+        }
+        void printMatrix() {
+	  for (size_t row = 0; row < size(); row++) {
+		for (size_t col = 0; col < size(); col++) {
+			std::cout << get(row,col) << " ";
+		}
+		std::cout << std::endl;
+	  }
+        }
 private:
 	size_t N;
 	std::vector<int> v;
 };
 
-void ReadMatrix(Matrix &m) {
-	for (size_t row = 0; row < m.size(); row++) {
-		for (size_t col = 0; col < m.size(); col++) {
-			std::cin >> m(row,col);
-		}
-	}
-}
 
-void PrintMatrix(const Matrix &m) {
-	for (size_t row = 0; row < m.size(); row++) {
-		for (size_t col = 0; col < m.size(); col++) {
-			std::cout << m(row,col) << " ";
-		}
-		std::cout << std::endl;
-	}
-}
+
+
 
 int Deikstra(Matrix m, int start, int finish) {
 	size_t N = m.size();
@@ -70,7 +80,7 @@ int main() {
 	std::cin >> start;
 	std::cin >> finish;
 	Matrix m(NVertice);
-	ReadMatrix(m);
+        m.readMatrix();
 	//std::cout << m(0,2) << " " << m(1,0) << std::endl;
 	//PrintMatrix(m);
 	std::cout << Deikstra(m, start-1, finish-1) << std::endl;
